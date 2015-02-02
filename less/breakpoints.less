@@ -1,0 +1,30 @@
+@ie8: false;
+
+@tabletWidth: 641px; // 641 and above
+@desktopWidth: 961px; // 800 and above
+
+
+//these will compile for ie8
+
+.tablet(@rules) when (@ie8 = true) {
+  @rules();
+}
+
+
+.desktop(@rules) when (@ie8 = true) {
+  @rules();
+}
+
+//these will compile for everything else
+
+.tablet(@rules) when (@ie8 = false) {
+  @media screen and (min-width: @tabletWidth) {
+    @rules();
+  }
+}
+
+.desktop(@rules) when (@ie8 = false) {
+  @media screen and (min-width: @desktopWidth), screen and (min-width: @tabletWidth) and (orientation: landscape) {
+    @rules();
+  }
+}

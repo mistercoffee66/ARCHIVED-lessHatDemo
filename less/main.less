@@ -1,6 +1,7 @@
 // http://lesscss.org/
 
 @import 'lesshat.less';
+@import 'breakpoints.less';
 
 // *** variables and usage
 @my-width: 100%;
@@ -73,6 +74,7 @@
 .h {
   width: image-width(@my-image);
   height: image-width(@my-image)/2;
+  .blur(5px);
 }
 
 //escaping
