@@ -1,0 +1,117 @@
+// http://lesscss.org/
+
+@import 'lesshat.less';
+
+// *** variables and usage
+@my-width: 100%;
+@my-message: 'so watch out!';
+@my-image: '../images/satan.jpg';
+@my-color: '#ccff00';
+
+// default (see functions for escaping)
+.a {
+  @my-height: 20px;
+  width: @my-width;
+  height: @my-height;
+  content: 'I am defined in .a @{my-message}';
+}
+
+// *** selector stuff
+
+// basic selector inherit
+.b {
+  .a;
+}
+
+// extend
+.c {
+  content: 'I am defined in .c';
+}
+.d:extend(.c) {}
+
+// mixin with params and local vars
+.my-mixin-1(@my-color: #ccc, @my-local-image: @my-image) {
+  @another-var: 'I was defined in .my-mixin';
+  color: @my-color;
+  background-image: url(@my-local-image);
+}
+
+.e {
+  .my-mixin-1();
+}
+
+.f {
+  .my-mixin-1(#666);
+  content: @another-var;
+}
+
+// scope illustration
+@size: 100px; // callers parent scope - no protection
+
+.my-mixin-2() {
+  @size: 60px;
+  @color: blue;
+  @definedOnlyInMixin: 66px;
+}
+
+.g {
+  @color: red;
+  .my-mixin-2();
+  margin: @size @definedOnlyInMixin;
+  color: @color;
+}
+
+
+// *** functions
+
+// img calcs
+
+//.g {
+//  background-image: data-uri('image/jpeg;base64', '../images/satan.jpg');
+//}
+
+.h {
+  width: image-width(@my-image);
+  height: image-width(@my-image)/2;
+}
+
+//escaping
+
+.i {
+  @pad: 50px;
+  width: calc(~'100% - 10px');
+  height: calc(~'100% - @{pad}');
+}
+
+// *** lesshat
+// https://github.com/madebysource/lesshat
+
+// prefix
+
+.j {
+  .box-sizing(border-box);
+  .box-shadow(10px 10px 5px rgba(255, 255, 255, .5));
+  .border-radius(10px);
+  .background-size(cover);
+}
+
+// syntax for different browsers
+
+.k {
+  .background-image(linear-gradient(to bottom, #fb83fa 0%,#e93cec 100%));
+}
+
+.l {
+  .background-image(linear-gradient(to bottom, '@{my-color}' 0%, #e93cec 100%));
+}
+
+// js functions!
+
+.contentReplace(...) {
+  @process: ~`(function(e){e=e||'0'; return e.replace('e','ke')})((function () {var e = "@{arguments}";return e = e.replace(/^\[|\]$/g, "")})())`;
+  content: @process;
+}
+
+.m {
+  .contentReplace('Joe');
+}

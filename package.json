@@ -1,0 +1,18 @@
+{
+  "name": "ibmNwwSite",
+  "version": "0.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "~3.8.10",
+    "gulp-less": "latest",
+    "gulp-livereload": "~2.1.0",
+    "gulp-load-plugins": "~0.5.3"
+  },
+  "dependencies": {}
+}
