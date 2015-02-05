@@ -15,6 +15,15 @@ gulp.task('less', function() {
 			.pipe(gulp.dest('./css'));
 });
 
+//ie8 less
+gulp.task('lessIE', function() {
+	return gulp.src(['./less/ie8.less'])
+			.pipe(plugins.less({
+				compress: false
+			}))
+			.pipe(gulp.dest('./css'));
+});
+
 
 //watch for dev changes to run tasks and livereload
 gulp.task('watch',['less'], function() {

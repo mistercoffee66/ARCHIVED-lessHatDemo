@@ -1,0 +1,32 @@
+// mixin with params and local vars
+.my-mixin-1(@my-color: #ccc, @my-local-image: @my-image) {
+  @another-var: 'I was defined in .my-mixin';
+  color: @my-color;
+  background-image: url(@my-local-image);
+}
+
+
+.my-mixin-2() {
+  @size: 60px;
+  @color: blue;
+  @definedOnlyInMixin: 66px;
+}
+
+// js functions!
+.contentReplace(@str) {
+  @process: ~`(function(){return (@{str}).replace('e','ke')})()`;
+  content: '@{process}';
+}
+
+// js example
+.my-gradient-mixin(@direction: right, @startColor: rgba(0,0,0,.5), @endColor: #ffffff) {
+
+  @startHex: rgb(red(@startColor),green(@startColor),blue(@startColor));
+  @endHex: rgb(red(@endColor),green(@endColor),blue(@endColor));
+
+  @processFilterDirection: ~`(function(){return '@{direction}' === 'right' ? 1 : 0})()`;
+
+  background: @startHex;
+  .background-image(linear-gradient(@direction, @startColor 0%, @endColor 100%));
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@{startHex}', endColorstr='@{endHex}',GradientType=@processFilterDirection );
+}
